@@ -1,0 +1,29 @@
+/* Vizze · identidade visual v1.1. Fontes via Google Fonts ou instalação local. */
+:root {
+  --vizze-indigo: #3025ED;
+  --vizze-ink: #121426;
+  --vizze-white: #FFFFFF;
+  --vizze-coral: #FF806B;
+  --vizze-mint: #BFEBDD;
+  --vizze-lavender: #E9E5FF;
+  --vizze-sand: #F7F1E6;
+  --vizze-teal: #176451;
+  --vizze-error: #B4233C;
+  --vizze-warning: #805400;
+  --vizze-font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --vizze-font-body: 'Inter', system-ui, sans-serif;
+  --vizze-font-editorial: 'Newsreader', Georgia, serif;
+  --vizze-space-1: 4px;
+  --vizze-space-2: 8px;
+  --vizze-space-3: 12px;
+  --vizze-space-4: 16px;
+  --vizze-space-6: 24px;
+  --vizze-space-8: 32px;
+  --vizze-control-height: 48px;
+  --vizze-radius-input: 10px;
+  --vizze-radius-button: 12px;
+  --vizze-radius-card: 16px;
+  --vizze-surface: #FFFEFB;
+  --vizze-canvas: #F8F7F4;
+  --vizze-divider: #D9D7D1;
+}

@@ -1,0 +1,30 @@
+/* Vizze Public Site Custom Enhancements */
+@layer utilities {
+  .font-heading {
+    font-family: var(--vizze-font-heading, 'Plus Jakarta Sans', system-ui, sans-serif);
+  }
+  .font-body {
+    font-family: var(--vizze-font-body, 'Inter', system-ui, sans-serif);
+  }
+  .font-editorial {
+    font-family: var(--vizze-font-editorial, 'Newsreader', Georgia, serif);
+  }
+}
+
+/* Custom details accordion smooth transition */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Subtle pulse for online status */
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+.live-indicator {
+  animation: pulseDot 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}

@@ -1,0 +1,20 @@
+# Vizze · Sistema Operacional para Serviços Locais
+
+> Vizze é o sistema operacional SaaS completo para barbearias, salões de beleza, estúdios de visagismo e clínicas integradas.
+
+## Ecossistema e Módulos Principais
+- **Vizze Pro Workspace**: Painel web multi-cadeiras para gestores e profissionais parceiros MEI.
+- **Display Smart TV & Totem**: Sistema visual e sonoro de chamada de atendimento e auto check-in multimodal para recepções.
+- **Super App do Cliente**: Aplicativo PWA com Passe Digital, histórico de visitas, alerta de chegada e Carteira de Fidelidade VIZ.
+- **Vitrine Stories 24h**: Preenchimento rápido de horários ociosos com promoções de 24 horas disparadas no app.
+
+## Planos Comerciais
+- **Vizze Solo MEI**: R$ 59/mês (Para especialistas individuais com link na bio e agenda mobile).
+- **Vizze Starter**: R$ 99/mês (Para estabelecimentos de até 3 profissionais parceiros).
+- **Vizze Pro Multi-Agenda + TV**: R$ 149/mês (O plano mais contratado, com cadeiras ilimitadas, TV, Totem e Stories 24h).
+- **Vizze Enterprise**: R$ 229/mês (Holding multi-lojas, franquias, integração Bling ERP e suporte dedicado).
+
+## Endereço Oficial e Contato
+- Site: https://vizze.wrocha.com
+- API Oficial: https://api-vizze.wrocha.com
+- Suporte comercial: WhatsApp +55 11 99412-8800
