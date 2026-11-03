@@ -8,7 +8,7 @@
     <meta name="description" content="<?= SITE_DESCRIPTION ?>">
     <link rel="canonical" href="<?= SITE_CANONICAL ?>">
 
-    <!-- Open Graph / Facebook -->
+    <!-- Open Graph / Meta -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="<?= SITE_CANONICAL ?>">
     <meta property="og:title" content="<?= SITE_NAME ?>">
@@ -20,12 +20,12 @@
     <meta name="twitter:title" content="<?= SITE_NAME ?>">
     <meta name="twitter:description" content="<?= SITE_DESCRIPTION ?>">
 
-    <!-- Google Fonts: Plus Jakarta Sans, Inter, Newsreader -->
+    <!-- Google Fonts oficiais do Manual Vizze -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Tailwind CSS (via CDN otimizado para produção sem dependência de build) -->
+    <!-- Tailwind CSS (configurado com tokens do manual) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -56,11 +56,11 @@
       }
     </script>
 
-    <!-- Design Tokens Locais -->
+    <!-- CSS customizado oficial Vizze v1.8 -->
     <link rel="stylesheet" href="/assets/css/tokens.css">
     <link rel="stylesheet" href="/assets/css/style.css">
 
-    <!-- Favicon -->
+    <!-- Favicon Oficial -->
     <link rel="icon" type="image/svg+xml" href="/assets/svg/vizze-simbolo-indigo.svg">
 
     <!-- Schema.org JSON-LD -->
@@ -96,41 +96,46 @@
     }
     </script>
 </head>
-<body class="bg-vizze-canvas text-vizze-ink font-body antialiased selection:bg-vizze-lavender selection:text-vizze-indigo">
+<body class="bg-vizze-canvas text-vizze-ink font-body antialiased selection:bg-vizze-lavender selection:text-vizze-indigo relative min-h-screen">
 
-<!-- Top Announcement Banner -->
-<div class="bg-vizze-ink text-white text-xs py-2 px-4 text-center border-b border-white/10 flex items-center justify-center gap-2">
+<!-- Ambient Glow Top -->
+<div class="glow-backdrop" aria-hidden="true"></div>
+
+<!-- Top Announcement Ribbon -->
+<div class="bg-vizze-ink text-white text-xs py-2 px-4 text-center border-b border-white/10 relative z-20 flex items-center justify-center gap-2">
   <span class="inline-block w-2 h-2 rounded-full bg-vizze-coral animate-pulse"></span>
-  <span><strong>Novidade:</strong> Smart TV & Totem de Auto Check-in agora disponíveis no Plano Pro.</span>
-  <a href="#planos" class="underline hover:text-vizze-coral font-semibold ml-1">Conhecer planos →</a>
+  <span class="text-white/90"><strong>Lançamento:</strong> Smart TV & Totem de Auto Check-in agora disponíveis no Plano Pro.</span>
+  <a href="#planos" class="underline hover:text-vizze-coral font-semibold ml-1.5 transition-colors">Conhecer planos →</a>
 </div>
 
 <!-- Header Navigation -->
-<header class="sticky top-0 z-50 bg-vizze-surface/90 backdrop-blur-md border-b border-vizze-divider transition-all">
+<header class="sticky top-0 z-50 bg-vizze-surface/85 backdrop-blur-md border-b border-vizze-divider transition-all">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
     <!-- Brand Logo -->
-    <a href="/" class="flex items-center gap-3 group">
+    <a href="/" class="flex items-center gap-3.5 group">
       <img src="/assets/svg/vizze-logo-indigo.svg" alt="Vizze" class="h-7 w-auto transition-transform group-hover:scale-105">
-      <span class="hidden sm:inline-block text-[10px] font-bold tracking-widest text-vizze-indigo border-l border-vizze-divider pl-3 uppercase">OS PARA SERVIÇOS</span>
+      <span class="hidden sm:inline-block text-[10px] font-bold tracking-widest text-[#514994] border-l border-vizze-divider pl-3 uppercase">OS PARA SERVIÇOS</span>
     </a>
 
     <!-- Desktop Navigation Links -->
     <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-[#4B5162]">
       <a href="#como-funciona" class="hover:text-vizze-indigo transition-colors">Como funciona</a>
-      <a href="#recursos" class="hover:text-vizze-indigo transition-colors">Recursos</a>
       <a href="#simulador" class="hover:text-vizze-indigo transition-colors">Calculadora de Lucro</a>
       <a href="#planos" class="hover:text-vizze-indigo transition-colors font-semibold text-vizze-indigo">Planos & Preços</a>
+      <a href="#casos" class="hover:text-vizze-indigo transition-colors">Resultados</a>
       <a href="#faq" class="hover:text-vizze-indigo transition-colors">Dúvidas</a>
     </nav>
 
-    <!-- Action Buttons -->
+    <!-- Action Buttons com estilo oficial do Manual -->
     <div class="flex items-center gap-3">
-      <a href="<?= URL_PRO_APP ?>" class="text-xs sm:text-sm font-semibold text-[#121426] hover:text-vizze-indigo px-3 py-2 rounded-lg transition-colors">
+      <a href="<?= URL_PRO_APP ?>" class="vz-btn vz-btn-ghost vz-btn-compact hidden sm:inline-flex">
         Entrar no Pro
       </a>
-      <a href="#planos" class="bg-vizze-indigo hover:bg-vizze-indigoHover text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-xl shadow-sm hover:shadow transition-all inline-flex items-center gap-1.5">
+      <a href="#planos" class="vz-btn vz-btn-primary vz-btn-compact shadow-sm">
         <span>Assinar Plano</span>
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="button-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m9 18 6-6-6-6"/></svg>
+        </span>
       </a>
     </div>
   </div>
