@@ -3,6 +3,8 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  if (window.__VIZZE_APP_INITIALIZED__) return;
+  window.__VIZZE_APP_INITIALIZED__ = true;
   // 1. Mobile Navigation Drawer
   const mobileBtn = document.getElementById('mobile-menu-btn');
   const mobileDrawer = document.getElementById('mobile-nav-drawer');

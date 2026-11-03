@@ -18,7 +18,7 @@ $activePrice = $billingCycle === 'annual' ? $currentPlan['annual_price'] : $curr
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#3025ED">
     <title>Assinar <?= htmlspecialchars($currentPlan['name']) ?> · Vizze Local Services OS</title>
-    <link rel="icon" type="image/svg+xml" href="/assets/svg/vizze-icon.svg">
+    <link rel="icon" type="image/svg+xml" href="<?= assetUrl('assets/svg/vizze-icon.svg') ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
@@ -53,19 +53,27 @@ $activePrice = $billingCycle === 'annual' ? $currentPlan['annual_price'] : $curr
         }
       }
     </script>
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="<?= assetUrl('assets/css/tokens.css') ?>">
+    <link rel="stylesheet" href="<?= assetUrl('assets/css/style.css') ?>">
+    <style id="vizze-inline-system">
+    <?php
+    $inlineCssPath = dirname(__DIR__) . '/assets/css/style.css';
+    if (is_file($inlineCssPath)) {
+        echo file_get_contents($inlineCssPath);
+    }
+    ?>
+    </style>
 </head>
 <body class="bg-vizze-canvas text-vizze-ink font-body min-h-screen py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative overflow-x-clip">
 
 <div class="max-w-5xl mx-auto relative z-10">
   <!-- Top Brand Header -->
   <header class="flex items-center justify-between mb-8 pb-5 border-b border-vizze-divider">
-    <a href="/" class="inline-flex items-center py-1 pr-3" aria-label="Voltar para a página inicial da Vizze">
-      <img src="/assets/svg/vizze-logo-indigo.svg" alt="Vizze" class="h-7 sm:h-8 w-auto">
+    <a href="<?= siteUrl() ?>" class="inline-flex items-center py-1 pr-3" aria-label="Voltar para a página inicial da Vizze">
+      <img src="<?= assetUrl('assets/svg/vizze-logo-indigo.svg') ?>" alt="Vizze" class="h-7 sm:h-8 w-auto" style="height:30px;width:auto;">
     </a>
-    <a href="/#planos" class="vz-btn vz-btn-neutral vz-btn-compact">
-      <svg class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+    <a href="<?= siteUrl('#planos') ?>" class="vz-btn vz-btn-neutral vz-btn-compact">
+      <?= vizzeIcon('arrow-left', 16) ?>
       <span>Voltar aos planos</span>
     </a>
   </header>
@@ -76,7 +84,7 @@ $activePrice = $billingCycle === 'annual' ? $currentPlan['annual_price'] : $curr
     <div class="flex flex-wrap gap-1.5">
       <?php foreach ($plans as $k => $pl): ?>
         <a
-          href="/checkout/?plan=<?= $k ?><?= $billingCycle === 'annual' ? '&billing=annual' : '' ?>"
+          href="<?= siteUrl('checkout/?plan=' . $k . ($billingCycle === 'annual' ? '&billing=annual' : '')) ?>"
           class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all <?= $k === $selectedPlanKey ? 'bg-vizze-indigo text-white shadow-xs' : 'bg-vizze-canvas text-[#555A6C] hover:text-vizze-ink border border-vizze-divider' ?>"
         >
           <?= htmlspecialchars($pl['name']) ?>
@@ -136,7 +144,7 @@ $activePrice = $billingCycle === 'annual' ? $currentPlan['annual_price'] : $curr
         <div class="flex items-start gap-2.5 pt-2">
           <input type="checkbox" id="lgpd-consent" required class="mt-1 w-4 h-4 rounded text-vizze-indigo focus:ring-vizze-indigo border-[#85899A]">
           <label for="lgpd-consent" class="text-xs text-[#555A6C] leading-snug">
-            Concordo com os <a href="/#faq" class="underline text-vizze-indigo font-semibold">Termos de Uso</a> e autorizo o tratamento dos dados cadastrais conforme a <a href="/#faq" class="underline text-vizze-indigo font-semibold">Política de Privacidade (LGPD)</a>.
+            Concordo com os <a href="<?= siteUrl('#faq') ?>" class="underline text-vizze-indigo font-semibold">Termos de Uso</a> e autorizo o tratamento dos dados cadastrais conforme a <a href="<?= siteUrl('#faq') ?>" class="underline text-vizze-indigo font-semibold">Política de Privacidade (LGPD)</a>.
           </label>
         </div>
 
@@ -146,7 +154,7 @@ $activePrice = $billingCycle === 'annual' ? $currentPlan['annual_price'] : $curr
           <button type="submit" id="submit-btn" class="vz-btn vz-btn-primary w-full text-base !min-h-[52px]">
             <span>Ativar <?= htmlspecialchars($currentPlan['name']) ?> Grátis</span>
             <span class="button-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              <?= vizzeIcon('arrow-right', 18) ?>
             </span>
           </button>
         </div>
@@ -178,7 +186,7 @@ $activePrice = $billingCycle === 'annual' ? $currentPlan['annual_price'] : $curr
         <ul class="space-y-2 text-xs text-[#3F4454]">
           <?php foreach ($currentPlan['features'] as $f): ?>
             <li class="flex items-start gap-2">
-              <svg class="w-4 h-4 text-vizze-teal shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span class="text-vizze-teal shrink-0 mt-0.5 inline-flex"><?= vizzeIcon('check', 16) ?></span>
               <span><?= htmlspecialchars($f) ?></span>
             </li>
           <?php endforeach; ?>
@@ -201,7 +209,7 @@ $activePrice = $billingCycle === 'annual' ? $currentPlan['annual_price'] : $curr
       </div>
 
       <div class="p-3.5 rounded-xl bg-vizze-mint/60 border border-[#9FD8C5] text-xs text-vizze-teal flex items-center gap-2.5">
-        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span class="shrink-0 inline-flex"><?= vizzeIcon('lock-keyhole', 16) ?></span>
         <span>Ambiente seguro SSL 256-bit · Dados protegidos pela LGPD</span>
       </div>
     </aside>

@@ -32,6 +32,7 @@ $plans = getSaaSPlans();
     <!-- Grid de Planos (4 colunas perfeitamente alinhadas) -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto items-stretch">
       <?php foreach ($plans as $key => $p): ?>
+        <?php $planUrl = siteUrl('checkout/?plan=' . $p['checkout_param']); ?>
         <article class="flex flex-col justify-between rounded-2xl transition-all p-6 relative <?= $p['popular'] ? 'border-2 border-vizze-indigo bg-gradient-to-b from-white via-[#FAF9FF] to-[#F3F1FF] shadow-xl' : 'border border-vizze-divider bg-vizze-surface hover:border-[#C7C3EF] shadow-xs' ?>">
           
           <div>
@@ -72,14 +73,14 @@ $plans = getSaaSPlans();
             <ul class="space-y-2.5 text-xs text-[#3F4454] mb-6">
               <?php foreach ($p['features'] as $feat): ?>
                 <li class="flex items-start gap-2.5">
-                  <svg class="w-4 h-4 text-vizze-teal shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span class="text-vizze-teal shrink-0 mt-0.5 inline-flex"><?= vizzeIcon('check', 16) ?></span>
                   <span class="leading-snug"><?= htmlspecialchars($feat) ?></span>
                 </li>
               <?php endforeach; ?>
 
               <?php foreach ($p['limitations'] as $lim): ?>
                 <li class="flex items-start gap-2.5 text-[#8A8F9E]">
-                  <svg class="w-4 h-4 text-[#B8BBC6] shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  <span class="text-[#B8BBC6] shrink-0 mt-0.5 inline-flex"><?= vizzeIcon('x', 16) ?></span>
                   <span class="leading-snug line-through"><?= htmlspecialchars($lim) ?></span>
                 </li>
               <?php endforeach; ?>
@@ -89,13 +90,13 @@ $plans = getSaaSPlans();
           <!-- Botão CTA do Plano com padrão Vizze Signature -->
           <div class="pt-2">
             <a
-              href="/checkout/?plan=<?= $p['checkout_param'] ?>"
-              data-base-href="/checkout/?plan=<?= $p['checkout_param'] ?>"
+              href="<?= htmlspecialchars($planUrl) ?>"
+              data-base-href="<?= htmlspecialchars($planUrl) ?>"
               class="plan-checkout-link vz-btn <?= $p['popular'] ? 'vz-btn-primary' : 'vz-btn-secondary' ?> w-full"
             >
               <span><?= htmlspecialchars($p['cta']) ?></span>
               <span class="button-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                <?= vizzeIcon('arrow-right', 18) ?>
               </span>
             </a>
           </div>
@@ -106,16 +107,16 @@ $plans = getSaaSPlans();
     <!-- Barra de Confiança & Garantias -->
     <div class="mt-12 pt-8 border-t border-vizze-divider/70 text-xs text-[#555A6C] flex flex-wrap justify-center items-center gap-x-8 gap-y-3">
       <span class="inline-flex items-center gap-2 font-medium">
-        <svg class="w-4 h-4 text-vizze-indigo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Ambiente Criptografado SSL 256-bit
+        <span class="text-vizze-indigo inline-flex"><?= vizzeIcon('lock-keyhole', 16) ?></span>
+        <span>Ambiente Criptografado SSL 256-bit</span>
       </span>
       <span class="inline-flex items-center gap-2 font-medium">
-        <svg class="w-4 h-4 text-vizze-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-        Upgrade ou downgrade em 1 clique
+        <span class="text-vizze-teal inline-flex"><?= vizzeIcon('confirmacao', 16) ?></span>
+        <span>Upgrade ou downgrade em 1 clique</span>
       </span>
       <span class="inline-flex items-center gap-2 font-medium">
-        <svg class="w-4 h-4 text-vizze-indigo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        Suporte comercial brasileiro no WhatsApp
+        <span class="text-vizze-indigo inline-flex"><?= vizzeIcon('mensagem', 16) ?></span>
+        <span>Suporte comercial brasileiro no WhatsApp</span>
       </span>
     </div>
   </div>

@@ -59,12 +59,20 @@
       }
     </script>
 
-    <!-- CSS customizado oficial Vizze v2.0 -->
-    <link rel="stylesheet" href="/assets/css/tokens.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <!-- CSS customizado oficial Vizze v2.0 (Link com cache-busting + Inline garantido contra falhas de rota/cache) -->
+    <link rel="stylesheet" href="<?= assetUrl('assets/css/tokens.css') ?>">
+    <link rel="stylesheet" href="<?= assetUrl('assets/css/style.css') ?>">
+    <style id="vizze-inline-system">
+    <?php
+    $inlineCssPath = dirname(__DIR__) . '/assets/css/style.css';
+    if (is_file($inlineCssPath)) {
+        echo file_get_contents($inlineCssPath);
+    }
+    ?>
+    </style>
 
     <!-- Favicon Oficial (vizze-icon.svg conforme Manual v2.0) -->
-    <link rel="icon" type="image/svg+xml" href="/assets/svg/vizze-icon.svg">
+    <link rel="icon" type="image/svg+xml" href="<?= assetUrl('assets/svg/vizze-icon.svg') ?>">
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -109,7 +117,10 @@
   <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-center">
     <span class="bg-vizze-coral text-vizze-ink font-bold text-[10px] uppercase tracking-wider px-2 py-0.5 rounded">Novidade</span>
     <span class="text-white/90">Recepção com <strong>Smart TV & Totem de Auto Check-in</strong> inclusos no Vizze Pro.</span>
-    <a href="#planos" class="text-vizze-mint hover:text-white underline font-semibold transition-colors whitespace-nowrap">Ver planos →</a>
+    <a href="#planos" class="text-vizze-mint hover:text-white underline font-semibold transition-colors whitespace-nowrap inline-flex items-center gap-1">
+      <span>Ver planos</span>
+      <?= vizzeIcon('arrow-right', 14) ?>
+    </a>
   </div>
 </div>
 
@@ -117,8 +128,8 @@
 <header class="sticky top-0 z-50 bg-vizze-surface/90 backdrop-blur-md border-b border-vizze-divider transition-all">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
     <!-- Brand Logo Oficial com área de proteção livre conforme Manual Seção 03 -->
-    <a href="/" class="inline-flex items-center py-2 pr-3 focus:outline-none" aria-label="Vizze - Página Inicial">
-      <img src="/assets/svg/vizze-logo-indigo.svg" alt="Vizze" class="h-7 sm:h-8 w-auto">
+    <a href="<?= siteUrl() ?>" class="inline-flex items-center py-2 pr-3 focus:outline-none" aria-label="Vizze - Página Inicial">
+      <img src="<?= assetUrl('assets/svg/vizze-logo-indigo.svg') ?>" alt="Vizze" class="h-7 sm:h-8 w-auto" style="height:30px;width:auto;">
     </a>
 
     <!-- Desktop Navigation Links -->
@@ -139,13 +150,17 @@
         <span class="sm:hidden">Testar Grátis</span>
         <span class="hidden sm:inline">Testar 14 Dias Grátis</span>
         <span class="button-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          <?= vizzeIcon('arrow-right', 18) ?>
         </span>
       </a>
       <!-- Botão Menu Mobile -->
       <button type="button" id="mobile-menu-btn" class="lg:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl border border-vizze-divider bg-white text-vizze-ink hover:border-vizze-indigo hover:text-vizze-indigo transition-colors" aria-expanded="false" aria-controls="mobile-nav-drawer" aria-label="Abrir menu de navegação">
-        <svg id="mobile-icon-open" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
-        <svg id="mobile-icon-close" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        <span id="mobile-icon-open" class="inline-flex items-center justify-center">
+          <?= vizzeIcon('menu', 20) ?>
+        </span>
+        <span id="mobile-icon-close" class="hidden items-center justify-center">
+          <?= vizzeIcon('x', 20) ?>
+        </span>
       </button>
     </div>
   </div>
@@ -161,7 +176,7 @@
       <a href="<?= URL_PRO_APP ?>" class="vz-btn vz-btn-secondary w-full">
         <span>Acessar Painel Vizze Pro</span>
         <span class="button-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+          <?= vizzeIcon('external-link', 18) ?>
         </span>
       </a>
     </div>

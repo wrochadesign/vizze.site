@@ -41,8 +41,8 @@
             <span class="browser-dot bg-[#FFBD2E]"></span>
             <span class="browser-dot bg-[#27C93F]"></span>
           </div>
-          <div class="bg-white/90 border border-vizze-divider px-3 sm:px-4 py-1 rounded-lg text-[11px] font-mono text-[#555A6C] flex items-center gap-1.5 truncate max-w-[200px] sm:max-w-none">
-            <svg class="w-3 h-3 text-vizze-teal shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <div class="bg-white/90 border border-vizze-divider px-3 sm:px-4 py-1 rounded-lg text-[11px] font-mono text-[#555A6C] flex items-center gap-1.5 truncate max-w-[220px] sm:max-w-none">
+            <span class="text-vizze-teal inline-flex"><?= vizzeIcon('lock-keyhole', 13) ?></span>
             <span class="truncate">pro.vizze.wrocha.com/agenda</span>
           </div>
           <span class="hidden sm:inline-block text-[11px] font-bold text-vizze-indigo bg-vizze-lavender px-2.5 py-0.5 rounded">Vizze Pro</span>
@@ -91,7 +91,7 @@
                   <button type="button" id="btn-simulate-tv-call" class="vz-btn vz-btn-primary vz-btn-compact !min-h-[34px] !py-1.5 !px-3 !text-xs">
                     <span>Chamar na TV</span>
                     <span class="button-icon" aria-hidden="true">
-                      <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                      <?= vizzeIcon('arrow-right', 16) ?>
                     </span>
                   </button>
                 </div>
@@ -152,7 +152,7 @@
         <!-- Top Bar da TV -->
         <div class="flex flex-wrap justify-between items-center gap-3 border-b border-white/10 pb-4">
           <div class="flex items-center gap-3">
-            <img src="/assets/svg/vizze-simbolo-branco.svg" alt="" class="w-6 h-6">
+            <img src="<?= assetUrl('assets/svg/vizze-simbolo-branco.svg') ?>" alt="" class="w-6 h-6" style="width:24px;height:24px;">
             <div>
               <strong class="text-xs sm:text-sm font-bold text-white tracking-wider uppercase font-heading block">
                 VIZZE DISPLAY · BARBEARIA DOM ROCHA
@@ -223,7 +223,7 @@
 
               <div class="p-4 sm:p-5 bg-vizze-surface space-y-4">
                 <div class="flex justify-between items-center">
-                  <img src="/assets/svg/vizze-logo-indigo.svg" alt="Vizze" class="h-5 w-auto">
+                  <img src="<?= assetUrl('assets/svg/vizze-logo-indigo.svg') ?>" alt="Vizze" class="h-5 w-auto" style="height:20px;width:auto;">
                   <span class="text-[11px] font-bold text-vizze-teal bg-vizze-mint px-2.5 py-0.5 rounded-full tabular-nums">
                     520 VIZ
                   </span>
@@ -241,7 +241,7 @@
                     <span class="text-xs font-bold text-vizze-ink tabular-nums">R$ 95,00</span>
                     <span class="text-[11px] font-bold text-white bg-vizze-indigo px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">
                       <span>Já cheguei</span>
-                      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                      <?= vizzeIcon('check', 14) ?>
                     </span>
                   </div>
                 </div>
@@ -290,7 +290,7 @@
               <a href="<?= URL_CLIENT_APP ?>" target="_blank" rel="noopener noreferrer" class="vz-btn vz-btn-secondary">
                 <span>Testar App do Cliente ao Vivo</span>
                 <span class="button-icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+                  <?= vizzeIcon('external-link', 18) ?>
                 </span>
               </a>
             </div>

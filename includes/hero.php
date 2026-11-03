@@ -20,18 +20,18 @@
         O sistema operacional que une <strong>agenda multi-cadeiras</strong>, chamada em tempo real na <strong>Smart TV</strong>, totem de recepção e fidelidade <strong>VIZ</strong> em uma única experiência.
       </p>
 
-      <!-- Signature CTA Buttons (Padrão Manual v1.8: Verbo + Objeto + Separador Vertical + Ícone 18px) -->
+      <!-- Signature CTA Buttons (Padrão Manual v1.8: Verbo + Objeto + Separador Vertical + Ícone Lucide 18px) -->
       <div class="pt-3 flex flex-col sm:flex-row items-center justify-center gap-3.5 max-w-md sm:max-w-none mx-auto">
         <a href="#planos" class="vz-btn vz-btn-primary w-full sm:w-auto text-base !min-h-[52px] !px-7">
           <span>Começar 14 Dias Grátis</span>
           <span class="button-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <?= vizzeIcon('arrow-right', 18) ?>
           </span>
         </a>
         <a href="#como-funciona" class="vz-btn vz-btn-secondary w-full sm:w-auto text-base !min-h-[52px] !px-6">
           <span>Explorar Ecossistema</span>
           <span class="button-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+            <?= vizzeIcon('chevron-down', 18) ?>
           </span>
         </a>
       </div>
@@ -39,36 +39,45 @@
       <!-- Os 3 Produtos Oficiais (Seção 15 do Manual: Lavanda, Menta e Areia com contrastes homologados) -->
       <div class="pt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-3xl mx-auto text-left">
         <a href="#como-funciona" data-jump-tab="tab-pro" class="group flex items-center gap-3 p-3.5 rounded-2xl bg-vizze-surface border border-vizze-divider hover:border-vizze-indigo transition-all">
-          <img src="/assets/svg/vizze-icon.svg" alt="" class="w-9 h-9 rounded-lg shrink-0">
-          <div class="min-w-0">
+          <img src="<?= assetUrl('assets/svg/vizze-icon.svg') ?>" alt="" class="w-9 h-9 rounded-lg shrink-0" style="width:36px;height:36px;">
+          <div class="min-w-0 flex-1">
             <div class="flex items-center gap-2">
               <strong class="text-xs font-bold text-vizze-ink">Vizze Pro</strong>
               <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-vizze-lavender text-vizze-indigo">Gestão</span>
             </div>
             <p class="text-[11px] text-[#626778] truncate mt-0.5">Agenda, equipe e comissões</p>
           </div>
+          <span class="text-vizze-indigo/60 group-hover:text-vizze-indigo transition-colors">
+            <?= vizzeIcon('chevron-right', 16) ?>
+          </span>
         </a>
 
         <a href="#como-funciona" data-jump-tab="tab-tv" class="group flex items-center gap-3 p-3.5 rounded-2xl bg-vizze-surface border border-vizze-divider hover:border-vizze-indigo transition-all">
-          <img src="/assets/svg/vizze-icon.svg" alt="" class="w-9 h-9 rounded-lg shrink-0">
-          <div class="min-w-0">
+          <img src="<?= assetUrl('assets/svg/vizze-icon.svg') ?>" alt="" class="w-9 h-9 rounded-lg shrink-0" style="width:36px;height:36px;">
+          <div class="min-w-0 flex-1">
             <div class="flex items-center gap-2">
               <strong class="text-xs font-bold text-vizze-ink">Vizze Display</strong>
               <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-vizze-sand text-vizze-warning">Recepção</span>
             </div>
             <p class="text-[11px] text-[#626778] truncate mt-0.5">Smart TV e Totem Check-in</p>
           </div>
+          <span class="text-vizze-indigo/60 group-hover:text-vizze-indigo transition-colors">
+            <?= vizzeIcon('chevron-right', 16) ?>
+          </span>
         </a>
 
         <a href="#como-funciona" data-jump-tab="tab-client" class="group flex items-center gap-3 p-3.5 rounded-2xl bg-vizze-surface border border-vizze-divider hover:border-vizze-indigo transition-all">
-          <img src="/assets/svg/vizze-icon.svg" alt="" class="w-9 h-9 rounded-lg shrink-0">
-          <div class="min-w-0">
+          <img src="<?= assetUrl('assets/svg/vizze-icon.svg') ?>" alt="" class="w-9 h-9 rounded-lg shrink-0" style="width:36px;height:36px;">
+          <div class="min-w-0 flex-1">
             <div class="flex items-center gap-2">
               <strong class="text-xs font-bold text-vizze-ink">Vizze Cliente</strong>
               <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-vizze-mint text-vizze-teal">Passe & VIZ</span>
             </div>
             <p class="text-[11px] text-[#626778] truncate mt-0.5">Catálogo, selos e horários</p>
           </div>
+          <span class="text-vizze-indigo/60 group-hover:text-vizze-indigo transition-colors">
+            <?= vizzeIcon('chevron-right', 16) ?>
+          </span>
         </a>
       </div>
 
@@ -87,12 +96,12 @@
 
         <div class="flex items-center gap-4">
           <span class="inline-flex items-center gap-1.5 font-medium text-vizze-teal">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
-            Sem contrato de fidelidade
+            <?= vizzeIcon('confirmacao', 16) ?>
+            <span>Sem contrato de fidelidade</span>
           </span>
           <span class="inline-flex items-center gap-1.5 font-medium text-vizze-teal">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"/></svg>
-            Ativação imediata
+            <?= vizzeIcon('confirmacao', 16) ?>
+            <span>Ativação imediata</span>
           </span>
         </div>
       </div>

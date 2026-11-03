@@ -6,8 +6,8 @@
       
       <!-- Coluna 1: Marca & Missão (5 colunas) -->
       <div class="md:col-span-5 space-y-4">
-        <a href="/" class="inline-block py-1" aria-label="Vizze">
-          <img src="/assets/svg/vizze-logo-branco.svg" alt="Vizze" class="h-7 w-auto">
+        <a href="<?= siteUrl() ?>" class="inline-block py-1" aria-label="Vizze">
+          <img src="<?= assetUrl('assets/svg/vizze-logo-branco.svg') ?>" alt="Vizze" class="h-7 w-auto" style="height:28px;width:auto;">
         </a>
         <p class="text-xs sm:text-sm text-white/70 max-w-sm leading-relaxed">
           Uma marca. Vários encontros. A plataforma completa para agendamento multi-cadeiras, recepção inteligente em Smart TV e relacionamento com clientes locais.
@@ -35,10 +35,10 @@
       <div class="md:col-span-4 space-y-3">
         <h4 class="text-xs font-bold uppercase tracking-wider text-vizze-mint font-heading">Planos & Contratação</h4>
         <ul class="space-y-2.5 text-xs text-white/75">
-          <li><a href="/checkout/?plan=solo_mei" class="hover:text-white transition-colors">Vizze Solo MEI · R$ 59/mês</a></li>
-          <li><a href="/checkout/?plan=starter" class="hover:text-white transition-colors">Vizze Starter Unidade · R$ 99/mês</a></li>
-          <li><a href="/checkout/?plan=pro" class="hover:text-white transition-colors font-semibold text-vizze-lavender">Vizze Pro + Smart TV · R$ 149/mês</a></li>
-          <li><a href="/checkout/?plan=enterprise" class="hover:text-white transition-colors">Vizze Enterprise Holding · R$ 229/mês</a></li>
+          <li><a href="<?= siteUrl('checkout/?plan=solo_mei') ?>" class="hover:text-white transition-colors">Vizze Solo MEI · R$ 59/mês</a></li>
+          <li><a href="<?= siteUrl('checkout/?plan=starter') ?>" class="hover:text-white transition-colors">Vizze Starter Unidade · R$ 99/mês</a></li>
+          <li><a href="<?= siteUrl('checkout/?plan=pro') ?>" class="hover:text-white transition-colors font-semibold text-vizze-lavender">Vizze Pro + Smart TV · R$ 149/mês</a></li>
+          <li><a href="<?= siteUrl('checkout/?plan=enterprise') ?>" class="hover:text-white transition-colors">Vizze Enterprise Holding · R$ 229/mês</a></li>
           <li><a href="https://wa.me/<?= WA_SUPPORT_NUMBER ?>" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Atendimento Comercial via WhatsApp</a></li>
         </ul>
       </div>
@@ -62,7 +62,9 @@
   <div class="bg-vizze-surface border border-vizze-divider rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl space-y-4">
     <div class="flex items-center justify-between border-b border-vizze-divider pb-3">
       <h3 id="legal-modal-title" class="text-lg font-bold text-vizze-ink font-heading">Política de Privacidade & LGPD</h3>
-      <button type="button" id="legal-modal-close" class="w-8 h-8 rounded-lg border border-vizze-divider flex items-center justify-center text-[#626778] hover:text-vizze-ink" aria-label="Fechar janela">✕</button>
+      <button type="button" id="legal-modal-close" class="w-8 h-8 rounded-lg border border-vizze-divider flex items-center justify-center text-[#626778] hover:text-vizze-ink" aria-label="Fechar janela">
+        <?= vizzeIcon('x', 16) ?>
+      </button>
     </div>
     <div id="legal-modal-body" class="text-xs sm:text-sm text-[#4B5162] leading-relaxed space-y-3 max-h-[60vh] overflow-y-auto">
       <p>Em conformidade com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018), a Vizze coleta e processa apenas os dados estritamente necessários para a operação da sua unidade, gestão de agendas e comunicação de agendamentos.</p>
@@ -82,11 +84,19 @@
   class="fixed bottom-5 right-5 z-40 bg-[#176451] hover:bg-[#124E3F] text-white p-3.5 rounded-2xl shadow-xl border border-vizze-mint/30 hover:scale-105 transition-all flex items-center justify-center gap-2 group"
   aria-label="Fale conosco no WhatsApp"
 >
-  <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+  <?= vizzeIcon('mensagem', 22) ?>
   <span class="hidden sm:inline text-xs font-semibold pr-1">Dúvidas? WhatsApp</span>
 </a>
 
-<!-- Scripts -->
-<script src="/assets/js/app.js"></script>
+<!-- Scripts (Link com cache-busting + Fallback Inline garantido) -->
+<script src="<?= assetUrl('assets/js/app.js') ?>"></script>
+<script>
+<?php
+$inlineJsPath = dirname(__DIR__) . '/assets/js/app.js';
+if (is_file($inlineJsPath)) {
+    echo file_get_contents($inlineJsPath);
+}
+?>
+</script>
 </body>
 </html>
