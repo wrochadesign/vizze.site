@@ -39,7 +39,7 @@
           <li><a href="<?= siteUrl('checkout/?plan=starter') ?>" class="hover:text-white transition-colors">Vizze Starter Unidade · R$ 99/mês</a></li>
           <li><a href="<?= siteUrl('checkout/?plan=pro') ?>" class="hover:text-white transition-colors font-semibold text-vizze-lavender">Vizze Pro + Smart TV · R$ 149/mês</a></li>
           <li><a href="<?= siteUrl('checkout/?plan=enterprise') ?>" class="hover:text-white transition-colors">Vizze Enterprise Holding · R$ 229/mês</a></li>
-          <li><a href="https://wa.me/<?= WA_SUPPORT_NUMBER ?>" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Atendimento Comercial via WhatsApp</a></li>
+          <li><a href="https://wa.me/<?= WA_SUPPORT_NUMBER ?>" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors inline-flex items-center gap-1.5"><?= vizzeIcon('whatsapp', 14) ?><span>Atendimento Comercial via WhatsApp</span></a></li>
         </ul>
       </div>
 
@@ -84,7 +84,7 @@
   class="fixed bottom-5 right-5 z-40 bg-[#176451] hover:bg-[#124E3F] text-white p-3.5 rounded-2xl shadow-xl border border-vizze-mint/30 hover:scale-105 transition-all flex items-center justify-center gap-2 group"
   aria-label="Fale conosco no WhatsApp"
 >
-  <?= vizzeIcon('mensagem', 22) ?>
+  <?= vizzeIcon('whatsapp', 22) ?>
   <span class="hidden sm:inline text-xs font-semibold pr-1">Dúvidas? WhatsApp</span>
 </a>
 

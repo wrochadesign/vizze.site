@@ -115,7 +115,7 @@ $plans = getSaaSPlans();
         <span>Upgrade ou downgrade em 1 clique</span>
       </span>
       <span class="inline-flex items-center gap-2 font-medium">
-        <span class="text-vizze-indigo inline-flex"><?= vizzeIcon('mensagem', 16) ?></span>
+        <span class="text-vizze-teal inline-flex"><?= vizzeIcon('whatsapp', 16) ?></span>
         <span>Suporte comercial brasileiro no WhatsApp</span>
       </span>
     </div>

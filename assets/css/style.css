@@ -197,7 +197,7 @@ h1 em, h2 em, h3 em, .font-editorial {
   margin-left: 4px;
 }
 
-.button-icon svg,
+.button-icon svg.vz-svg-icon,
 svg.vz-svg-icon {
   width: 18px;
   height: 18px;
@@ -208,6 +208,19 @@ svg.vz-svg-icon {
   stroke-linecap: round;
   stroke-linejoin: round;
   fill: none !important;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.button-icon svg.vz-brand-icon,
+svg.vz-brand-icon {
+  width: 18px;
+  height: 18px;
+  max-width: 24px;
+  max-height: 24px;
+  fill: currentColor !important;
+  stroke: none !important;
   flex-shrink: 0;
   display: inline-block;
   vertical-align: middle;

@@ -28,7 +28,7 @@
       <a href="https://wa.me/<?= WA_SUPPORT_NUMBER ?>?text=Ol%C3%A1%2C%20gostaria%20de%20tirar%20d%C3%BAvidas%20sobre%20os%20planos%20do%20Vizze." target="_blank" rel="noopener noreferrer" class="vz-btn vz-btn-ghost-white w-full sm:w-auto text-base !min-h-[52px] !px-6">
         <span>Falar com Consultor no WhatsApp</span>
         <span class="button-icon" aria-hidden="true">
-          <?= vizzeIcon('mensagem', 18) ?>
+          <?= vizzeIcon('whatsapp', 18) ?>
         </span>
       </a>
     </div>
