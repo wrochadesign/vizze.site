@@ -1,23 +1,27 @@
 <?php
 require_once dirname(__DIR__) . '/includes/config.php';
 
-$selectedPlanKey = isset($_GET['plan']) && in_array($_GET['plan'], ['solo_mei', 'starter', 'pro', 'enterprise'])
+$selectedPlanKey = isset($_GET['plan']) && in_array($_GET['plan'], ['solo_mei', 'starter', 'pro', 'enterprise'], true)
     ? $_GET['plan']
     : 'pro';
 
+$billingCycle = (isset($_GET['billing']) && $_GET['billing'] === 'annual') ? 'annual' : 'monthly';
+
 $plans = getSaaSPlans();
 $currentPlan = $plans[$selectedPlanKey];
+$activePrice = $billingCycle === 'annual' ? $currentPlan['annual_price'] : $currentPlan['monthly_price'];
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#3025ED">
     <title>Assinar <?= htmlspecialchars($currentPlan['name']) ?> · Vizze Local Services OS</title>
-    <link rel="icon" type="image/svg+xml" href="/assets/svg/vizze-simbolo-indigo.svg">
+    <link rel="icon" type="image/svg+xml" href="/assets/svg/vizze-icon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -26,7 +30,7 @@ $currentPlan = $plans[$selectedPlanKey];
             colors: {
               vizze: {
                 indigo: '#3025ED',
-                indigoHover: '#251CB8',
+                indigoHover: '#251BC5',
                 ink: '#121426',
                 surface: '#FFFEFB',
                 canvas: '#F8F7F4',
@@ -35,7 +39,9 @@ $currentPlan = $plans[$selectedPlanKey];
                 lavender: '#E9E5FF',
                 sand: '#F7F1E6',
                 teal: '#176451',
-                divider: '#E6E3DC'
+                error: '#B4233C',
+                warning: '#805400',
+                divider: '#D9D7D1'
               }
             },
             fontFamily: {
@@ -47,83 +53,100 @@ $currentPlan = $plans[$selectedPlanKey];
         }
       }
     </script>
+    <link rel="stylesheet" href="/assets/css/tokens.css">
     <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body class="bg-vizze-canvas text-vizze-ink font-body min-h-screen py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative">
+<body class="bg-vizze-canvas text-vizze-ink font-body min-h-screen py-8 sm:py-12 px-4 sm:px-6 lg:px-8 relative overflow-x-clip">
 
-<div class="max-w-4xl mx-auto relative z-10">
+<div class="max-w-5xl mx-auto relative z-10">
   <!-- Top Brand Header -->
-  <div class="flex items-center justify-between mb-8 pb-5 border-b border-vizze-divider">
-    <a href="/" class="flex items-center gap-2 transition-opacity hover:opacity-85">
-      <img src="/assets/svg/vizze-logo-indigo.svg" alt="Vizze" class="h-8 w-auto">
+  <header class="flex items-center justify-between mb-8 pb-5 border-b border-vizze-divider">
+    <a href="/" class="inline-flex items-center py-1 pr-3" aria-label="Voltar para a página inicial da Vizze">
+      <img src="/assets/svg/vizze-logo-indigo.svg" alt="Vizze" class="h-7 sm:h-8 w-auto">
     </a>
-    <a href="/#planos" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#626778] hover:text-vizze-indigo bg-vizze-surface px-3 py-1.5 rounded-xl border border-vizze-divider transition-all">
-      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
-      <span>Trocar de plano</span>
+    <a href="/#planos" class="vz-btn vz-btn-neutral vz-btn-compact">
+      <svg class="w-4 h-4 mr-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+      <span>Voltar aos planos</span>
     </a>
+  </header>
+
+  <!-- Seletor Rápido de Plano no Topo do Checkout -->
+  <div class="mb-7 flex flex-wrap items-center justify-between gap-3 bg-vizze-surface p-3 rounded-2xl border border-vizze-divider">
+    <span class="text-xs font-semibold text-[#555A6C] pl-2">Trocar plano rapidamente:</span>
+    <div class="flex flex-wrap gap-1.5">
+      <?php foreach ($plans as $k => $pl): ?>
+        <a
+          href="/checkout/?plan=<?= $k ?><?= $billingCycle === 'annual' ? '&billing=annual' : '' ?>"
+          class="px-3 py-1.5 rounded-lg text-xs font-semibold transition-all <?= $k === $selectedPlanKey ? 'bg-vizze-indigo text-white shadow-xs' : 'bg-vizze-canvas text-[#555A6C] hover:text-vizze-ink border border-vizze-divider' ?>"
+        >
+          <?= htmlspecialchars($pl['name']) ?>
+        </a>
+      <?php endforeach; ?>
+    </div>
   </div>
 
   <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
     
     <!-- Formulário de Cadastro & Ativação (7 Colunas) -->
-    <div class="lg:col-span-7 bg-vizze-surface p-6 sm:p-8 rounded-3xl border border-vizze-divider shadow-xl space-y-6">
+    <div class="lg:col-span-7 bg-vizze-surface p-6 sm:p-8 rounded-2xl border border-vizze-divider shadow-md space-y-6">
       <div>
-        <span class="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-vizze-indigo bg-vizze-lavender px-3 py-1 rounded-full shadow-sm">
-          <span class="w-1.5 h-1.5 rounded-full bg-vizze-indigo animate-pulse"></span>
-          Etapa Única · Ativação Imediata
-        </span>
-        <h1 class="text-2xl sm:text-3xl font-black text-vizze-ink font-heading tracking-tight mt-3">
-          Crie sua conta e configure sua unidade
+        <div class="eyebrow-tag mb-2">
+          <span class="eyebrow-num">ETAPA ÚNICA</span>
+          <span>Ativação Instantânea</span>
+        </div>
+        <h1 class="text-2xl sm:text-3xl font-bold text-vizze-ink font-heading leading-tight">
+          Crie sua conta e configure sua unidade.
         </h1>
-        <p class="text-xs sm:text-sm text-[#626778] mt-1.5">
-          Você terá 14 dias de teste completo sem cobrança no seu cartão hoje.
+        <p class="text-xs sm:text-sm text-[#555A6C] mt-1.5">
+          Você terá <strong>14 dias de teste gratuito</strong> sem nenhuma cobrança hoje.
         </p>
       </div>
 
-      <form id="onboarding-form" class="space-y-4">
+      <form id="onboarding-form" class="space-y-4" novalidate>
         <input type="hidden" id="form-plan" value="<?= htmlspecialchars($currentPlan['id']) ?>">
+        <input type="hidden" id="form-billing" value="<?= htmlspecialchars($billingCycle) ?>">
 
         <div>
-          <label class="block text-xs font-bold text-vizze-ink mb-1.5">Nome do Estabelecimento ou Cadeira Solo</label>
-          <input type="text" id="business-name" required placeholder="Ex: Barbearia Dom Rocha ou Studio Visagismo" class="w-full px-4 py-3 rounded-xl border border-vizze-divider bg-white text-sm focus:outline-none focus:ring-2 focus:ring-vizze-indigo focus:border-transparent transition-all">
+          <label for="business-name" class="block text-xs sm:text-sm font-semibold text-vizze-ink mb-1.5">Nome do Estabelecimento ou Cadeira Solo</label>
+          <input type="text" id="business-name" required placeholder="Ex: Barbearia Dom Rocha ou Studio Camila" class="w-full min-h-[48px] px-3.5 py-2.5 rounded-[10px] border border-[#85899A] bg-white text-sm text-vizze-ink focus:outline-none focus:ring-2 focus:ring-vizze-indigo focus:border-vizze-indigo transition-all">
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label class="block text-xs font-bold text-vizze-ink mb-1.5">Seu Nome Completo</label>
-            <input type="text" id="user-name" required placeholder="Seu nome" class="w-full px-4 py-3 rounded-xl border border-vizze-divider bg-white text-sm focus:outline-none focus:ring-2 focus:ring-vizze-indigo focus:border-transparent transition-all">
+            <label for="user-name" class="block text-xs sm:text-sm font-semibold text-vizze-ink mb-1.5">Seu Nome Completo</label>
+            <input type="text" id="user-name" required placeholder="Seu nome e sobrenome" class="w-full min-h-[48px] px-3.5 py-2.5 rounded-[10px] border border-[#85899A] bg-white text-sm text-vizze-ink focus:outline-none focus:ring-2 focus:ring-vizze-indigo focus:border-vizze-indigo transition-all">
           </div>
           <div>
-            <label class="block text-xs font-bold text-vizze-ink mb-1.5">WhatsApp com DDD</label>
-            <input type="tel" id="user-phone" required placeholder="(11) 99999-0000" class="w-full px-4 py-3 rounded-xl border border-vizze-divider bg-white text-sm focus:outline-none focus:ring-2 focus:ring-vizze-indigo focus:border-transparent transition-all">
+            <label for="user-phone" class="block text-xs sm:text-sm font-semibold text-vizze-ink mb-1.5">WhatsApp com DDD</label>
+            <input type="tel" id="user-phone" required placeholder="(11) 99999-0000" class="w-full min-h-[48px] px-3.5 py-2.5 rounded-[10px] border border-[#85899A] bg-white text-sm text-vizze-ink focus:outline-none focus:ring-2 focus:ring-vizze-indigo focus:border-vizze-indigo transition-all">
           </div>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-vizze-ink mb-1.5">E-mail de Acesso (Login)</label>
-          <input type="email" id="user-email" required placeholder="seuemail@exemplo.com" class="w-full px-4 py-3 rounded-xl border border-vizze-divider bg-white text-sm focus:outline-none focus:ring-2 focus:ring-vizze-indigo focus:border-transparent transition-all">
+          <label for="user-email" class="block text-xs sm:text-sm font-semibold text-vizze-ink mb-1.5">E-mail de Acesso (Login no Vizze Pro)</label>
+          <input type="email" id="user-email" required placeholder="voce@seuemail.com.br" class="w-full min-h-[48px] px-3.5 py-2.5 rounded-[10px] border border-[#85899A] bg-white text-sm text-vizze-ink focus:outline-none focus:ring-2 focus:ring-vizze-indigo focus:border-vizze-indigo transition-all">
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-vizze-ink mb-1.5">Criar Senha de Acesso</label>
-          <input type="password" id="user-password" required minlength="6" placeholder="Mínimo 6 dígitos" class="w-full px-4 py-3 rounded-xl border border-vizze-divider bg-white text-sm focus:outline-none focus:ring-2 focus:ring-vizze-indigo focus:border-transparent transition-all">
+          <label for="user-password" class="block text-xs sm:text-sm font-semibold text-vizze-ink mb-1.5">Criar Senha de Acesso</label>
+          <input type="password" id="user-password" required minlength="6" placeholder="Mínimo de 6 caracteres" class="w-full min-h-[48px] px-3.5 py-2.5 rounded-[10px] border border-[#85899A] bg-white text-sm text-vizze-ink focus:outline-none focus:ring-2 focus:ring-vizze-indigo focus:border-vizze-indigo transition-all">
         </div>
 
         <!-- Checkbox de Consentimento LGPD Obrigatório -->
         <div class="flex items-start gap-2.5 pt-2">
-          <input type="checkbox" id="lgpd-consent" required class="mt-1 w-4 h-4 rounded text-vizze-indigo focus:ring-vizze-indigo border-vizze-divider">
-          <label for="lgpd-consent" class="text-[11px] text-[#626778] leading-snug">
-            Concordo com os <a href="/#termos" class="underline text-vizze-indigo font-semibold">Termos de Uso</a> e autorizo o tratamento de dados cadastrais conforme a <a href="/#lgpd" class="underline text-vizze-indigo font-semibold">Política de Privacidade (LGPD)</a>.
+          <input type="checkbox" id="lgpd-consent" required class="mt-1 w-4 h-4 rounded text-vizze-indigo focus:ring-vizze-indigo border-[#85899A]">
+          <label for="lgpd-consent" class="text-xs text-[#555A6C] leading-snug">
+            Concordo com os <a href="/#faq" class="underline text-vizze-indigo font-semibold">Termos de Uso</a> e autorizo o tratamento dos dados cadastrais conforme a <a href="/#faq" class="underline text-vizze-indigo font-semibold">Política de Privacidade (LGPD)</a>.
           </label>
         </div>
 
-        <div id="feedback-msg" class="hidden text-xs p-3.5 rounded-xl"></div>
+        <div id="feedback-msg" class="hidden text-xs p-3.5 rounded-xl font-medium" role="status"></div>
 
         <div class="pt-2">
-          <button type="submit" id="submit-btn" class="vz-btn vz-btn-primary w-full text-center py-4">
-            <span>Ativar <?= htmlspecialchars($currentPlan['name']) ?></span>
-            <span class="button-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+          <button type="submit" id="submit-btn" class="vz-btn vz-btn-primary w-full text-base !min-h-[52px]">
+            <span>Ativar <?= htmlspecialchars($currentPlan['name']) ?> Grátis</span>
+            <span class="button-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </span>
           </button>
         </div>
@@ -131,85 +154,57 @@ $currentPlan = $plans[$selectedPlanKey];
     </div>
 
     <!-- Resumo do Pedido / Plano Escolhido (5 Colunas) -->
-    <div class="lg:col-span-5 bg-vizze-surface p-6 sm:p-7 rounded-3xl border-2 border-vizze-indigo/30 shadow-lg space-y-5">
-      <div class="flex justify-between items-start">
-        <div>
-          <span class="text-[10px] font-bold uppercase tracking-wider text-vizze-indigo bg-vizze-lavender px-2.5 py-0.5 rounded-full">
+    <aside class="lg:col-span-5 bg-vizze-surface p-6 sm:p-7 rounded-2xl border-2 border-vizze-indigo/30 shadow-md space-y-5">
+      <div class="flex justify-between items-start gap-4">
+        <div class="min-w-0">
+          <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-vizze-indigo bg-vizze-lavender px-2.5 py-0.5 rounded-md">
             Plano Selecionado
           </span>
-          <h3 class="text-xl font-black text-vizze-ink font-heading mt-2"><?= htmlspecialchars($currentPlan['name']) ?></h3>
+          <h2 class="text-xl font-bold text-vizze-ink font-heading mt-2 leading-snug"><?= htmlspecialchars($currentPlan['name']) ?></h2>
+          <p class="text-xs text-vizze-indigo font-semibold mt-0.5"><?= htmlspecialchars($currentPlan['subtitle']) ?></p>
         </div>
-        <div class="text-right">
-          <div class="text-2xl font-black text-vizze-ink font-heading">R$ <?= $currentPlan['monthly_price'] ?></div>
-          <small class="text-[11px] text-[#707585]">por mês</small>
+        <div class="text-right shrink-0 tabular-nums">
+          <div class="text-2xl font-bold text-vizze-ink font-heading whitespace-nowrap">R$ <?= $activePrice ?></div>
+          <small class="text-[11px] text-[#626778] block whitespace-nowrap">por mês <?= $billingCycle === 'annual' ? '(anual)' : '' ?></small>
         </div>
       </div>
 
-      <p class="text-xs text-[#626778] leading-relaxed">
+      <p class="text-xs text-[#555A6C] leading-relaxed">
         <?= htmlspecialchars($currentPlan['headline']) ?>
       </p>
 
       <div class="pt-4 border-t border-vizze-divider space-y-2.5">
-        <span class="text-[11px] font-bold uppercase tracking-wider text-vizze-ink block">Recursos inclusos:</span>
-        <ul class="space-y-2 text-xs text-[#444857]">
+        <span class="text-[11px] font-bold uppercase tracking-wider text-vizze-ink block">Recursos inclusos no plano:</span>
+        <ul class="space-y-2 text-xs text-[#3F4454]">
           <?php foreach ($currentPlan['features'] as $f): ?>
             <li class="flex items-start gap-2">
-              <svg class="w-4 h-4 text-vizze-indigo shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <svg class="w-4 h-4 text-vizze-teal shrink-0 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><polyline points="20 6 9 17 4 12"/></svg>
               <span><?= htmlspecialchars($f) ?></span>
             </li>
           <?php endforeach; ?>
         </ul>
       </div>
 
-      <div class="pt-4 border-t border-vizze-divider text-xs text-[#737080] space-y-2">
+      <div class="pt-4 border-t border-vizze-divider text-xs text-[#555A6C] space-y-2 tabular-nums">
         <div class="flex justify-between">
           <span>Período de teste inicial</span>
           <strong class="text-vizze-teal font-bold">14 dias grátis</strong>
         </div>
         <div class="flex justify-between">
-          <span>Contrato / Fidelidade</span>
-          <strong class="text-vizze-ink">Sem carência ou multas</strong>
+          <span>Fidelidade / Multa</span>
+          <strong class="text-vizze-ink font-semibold">Nenhuma</strong>
         </div>
         <div class="flex justify-between font-bold text-vizze-ink pt-3 border-t border-dashed border-vizze-divider text-sm">
           <span>Total a pagar hoje</span>
-          <span class="text-vizze-teal font-black text-base">R$ 0,00</span>
+          <span class="text-vizze-teal font-bold text-base">R$ 0,00</span>
         </div>
       </div>
 
-      <div class="pt-2 text-center">
-        <small class="text-[11px] text-[#888D9E] block">
-          🔒 Ambiente seguro criptografado SSL 256 bits
-        </small>
+      <div class="p-3.5 rounded-xl bg-vizze-mint/60 border border-[#9FD8C5] text-xs text-vizze-teal flex items-center gap-2.5">
+        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Ambiente seguro SSL 256-bit · Dados protegidos pela LGPD</span>
       </div>
-    </div>
-
-  </div>
-</div>
-        <ul class="space-y-1.5 text-xs text-[#444857]">
-          <?php foreach ($currentPlan['features'] as $f): ?>
-            <li class="flex items-center gap-2">
-              <span class="text-vizze-indigo font-bold">✓</span>
-              <span><?= htmlspecialchars($f) ?></span>
-            </li>
-          <?php endforeach; ?>
-        </ul>
-      </div>
-
-      <div class="pt-4 border-t border-vizze-divider text-xs text-[#737080] space-y-1">
-        <div class="flex justify-between">
-          <span>Período de teste</span>
-          <strong class="text-[#176451]">14 dias grátis</strong>
-        </div>
-        <div class="flex justify-between">
-          <span>Cancelamento</span>
-          <strong>A qualquer momento</strong>
-        </div>
-        <div class="flex justify-between font-bold text-vizze-ink pt-2 border-t border-dashed border-vizze-divider text-sm">
-          <span>Total hoje</span>
-          <span class="text-[#176451]">R$ 0,00</span>
-        </div>
-      </div>
-    </div>
+    </aside>
 
   </div>
 </div>
@@ -221,18 +216,33 @@ const submitBtn = document.getElementById('submit-btn');
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+
+  const businessName = document.getElementById('business-name').value.trim();
+  const userName = document.getElementById('user-name').value.trim();
+  const userPhone = document.getElementById('user-phone').value.trim();
+  const userEmail = document.getElementById('user-email').value.trim();
+  const userPassword = document.getElementById('user-password').value;
+  const lgpdConsent = document.getElementById('lgpd-consent').checked;
+
+  if (!businessName || !userName || !userPhone || !userEmail || userPassword.length < 6 || !lgpdConsent) {
+    feedback.className = 'text-xs p-3.5 rounded-xl bg-[#FFF0F2] text-[#B4233C] border border-[#F5C2C7] block font-medium';
+    feedback.innerText = 'Preencha todos os campos corretamente (senha mínima de 6 caracteres) e aceite os termos LGPD.';
+    return;
+  }
+
   submitBtn.disabled = true;
-  submitBtn.innerHTML = '<span>Criando sua unidade...</span>';
+  submitBtn.innerHTML = '<span>Configurando sua unidade...</span>';
   feedback.className = 'hidden';
 
   const payload = {
-    name: document.getElementById('user-name').value.trim(),
-    email: document.getElementById('user-email').value.trim(),
-    phone: document.getElementById('user-phone').value.trim(),
-    password: document.getElementById('user-password').value,
+    name: userName,
+    email: userEmail,
+    phone: userPhone,
+    password: userPassword,
     role: 'owner',
-    business_name: document.getElementById('business-name').value.trim(),
-    saas_plan_id: document.getElementById('form-plan').value
+    business_name: businessName,
+    saas_plan_id: document.getElementById('form-plan').value,
+    billing_cycle: document.getElementById('form-billing').value
   };
 
   try {
@@ -245,17 +255,16 @@ form.addEventListener('submit', async (e) => {
     const data = await res.json();
 
     if (!res.ok || !data.success) {
-      feedback.className = 'text-xs p-3 rounded-xl bg-red-100 text-red-800 block';
-      feedback.innerText = data.message || 'Erro ao criar conta. Verifique os dados e tente novamente.';
+      feedback.className = 'text-xs p-3.5 rounded-xl bg-[#FFF0F2] text-[#B4233C] border border-[#F5C2C7] block font-medium';
+      feedback.innerText = data.message || 'Não foi possível concluir o cadastro. Verifique os dados informados.';
       submitBtn.disabled = false;
       submitBtn.innerHTML = '<span>Tentar Novamente</span>';
       return;
     }
 
-    feedback.className = 'text-xs p-3 rounded-xl bg-green-100 text-green-800 block';
-    feedback.innerText = 'Conta criada com sucesso! Redirecionando para o seu Vizze Pro...';
+    feedback.className = 'text-xs p-3.5 rounded-xl bg-[#BFEBDD] text-[#176451] border border-[#93CDBB] block font-semibold';
+    feedback.innerText = '✓ Unidade criada com sucesso! Redirecionando para o seu painel Vizze Pro...';
 
-    // Salva token e redireciona para o Pro App
     if (data.data?.access_token) {
       localStorage.setItem('vizze_auth_session', JSON.stringify({
         access_token: data.data.access_token,
@@ -267,11 +276,11 @@ form.addEventListener('submit', async (e) => {
 
     setTimeout(() => {
       window.location.href = '<?= URL_PRO_APP ?>';
-    }, 1500);
+    }, 1400);
 
   } catch (err) {
-    feedback.className = 'text-xs p-3 rounded-xl bg-red-100 text-red-800 block';
-    feedback.innerText = 'Não foi possível conectar ao servidor. Tente novamente.';
+    feedback.className = 'text-xs p-3.5 rounded-xl bg-[#FFF0F2] text-[#B4233C] border border-[#F5C2C7] block font-medium';
+    feedback.innerText = 'Erro de conexão com o servidor. Confira sua internet e tente novamente.';
     submitBtn.disabled = false;
     submitBtn.innerHTML = '<span>Tentar Novamente</span>';
   }

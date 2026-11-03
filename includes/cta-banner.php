@@ -1,35 +1,34 @@
 <!-- CLOSING HIGH-CONVERTING CTA BANNER -->
-<section class="py-24 bg-gradient-to-br from-vizze-indigo via-[#251CB8] to-[#121426] text-white relative overflow-hidden">
-  <!-- Efeitos ambient glow de fundo -->
-  <div class="absolute -top-32 -left-32 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-vizze-mint/15 rounded-full blur-3xl pointer-events-none"></div>
+<section class="py-20 md:py-24 bg-vizze-indigo text-white relative overflow-hidden">
+  <!-- Detalhes sutis de iluminação -->
+  <div class="absolute -top-24 -left-24 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute -bottom-24 -right-24 w-80 h-80 bg-vizze-mint/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
 
-  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
-    <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-vizze-mint bg-white/10 px-3.5 py-1.5 rounded-full backdrop-blur-sm border border-white/10 shadow-inner">
-      <span class="w-1.5 h-1.5 rounded-full bg-vizze-mint animate-pulse"></span>
-      14 Dias de Teste Grátis · Sem Cartão Antecipado
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
+    <span class="inline-block text-xs font-bold uppercase tracking-wider text-vizze-ink bg-vizze-mint px-3.5 py-1 rounded-full">
+      14 Dias de Teste Grátis · Ativação Imediata
     </span>
     
-    <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black font-heading text-white tracking-tight leading-tight">
-      Sua rotina merece um bom encontro.<br>
-      <em class="font-editorial font-normal italic text-vizze-lavender">Seu salão merece o Vizze.</em>
+    <h2 class="text-3xl sm:text-5xl font-bold font-heading text-white leading-tight">
+      Por trás de cada horário, existe uma pessoa.<br>
+      <em class="font-editorial font-normal italic text-vizze-lavender">Seu negócio mais perto de cada cliente.</em>
     </h2>
 
-    <p class="text-base sm:text-lg text-white/80 max-w-2xl mx-auto font-normal leading-relaxed">
-      Junte-se aos estabelecimentos que aumentaram o faturamento em até 28% no primeiro mês com a Smart TV e a agenda simultânea.
+    <p class="text-base sm:text-lg text-white/85 max-w-2xl mx-auto font-normal leading-relaxed">
+      Junte-se aos estabelecimentos que organizaram a recepção e aumentaram a ocupação da agenda já no primeiro mês.
     </p>
 
-    <div class="pt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
-      <a href="#planos" class="vz-btn vz-btn-white w-full sm:w-auto text-center shadow-2xl">
+    <div class="pt-3 flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md sm:max-w-none mx-auto">
+      <a href="#planos" class="vz-btn vz-btn-white w-full sm:w-auto text-base !min-h-[52px] !px-7">
         <span>Começar Teste Grátis Agora</span>
-        <span class="button-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="button-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </span>
       </a>
-      <a href="https://wa.me/<?= WA_SUPPORT_NUMBER ?>?text=Ol%C3%A1%2C%20gostaria%20de%20tirar%20d%C3%BAvidas%20sobre%20os%20planos%20do%20Vizze." target="_blank" rel="noopener noreferrer" class="vz-btn vz-btn-ghost-white w-full sm:w-auto text-center">
-        <span>Falar com Consultor</span>
-        <span class="button-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2"/></svg>
+      <a href="https://wa.me/<?= WA_SUPPORT_NUMBER ?>?text=Ol%C3%A1%2C%20gostaria%20de%20tirar%20d%C3%BAvidas%20sobre%20os%20planos%20do%20Vizze." target="_blank" rel="noopener noreferrer" class="vz-btn vz-btn-ghost-white w-full sm:w-auto text-base !min-h-[52px] !px-6">
+        <span>Falar com Consultor no WhatsApp</span>
+        <span class="button-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
         </span>
       </a>
     </div>

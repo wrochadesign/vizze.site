@@ -1,12 +1,12 @@
 /* ==========================================================================
-   VIZZE DESIGN SYSTEM · CSS CORE & MODERN SAAS PATTERNS (Manual v1.8)
+   VIZZE DESIGN SYSTEM · CSS CORE & PRODUCT PATTERNS (Manual v2.0)
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap');
 
 :root {
   --vizze-indigo: #3025ED;
-  --vizze-indigo-hover: #251CB8;
+  --vizze-indigo-hover: #251BC5;
   --vizze-ink: #121426;
   --vizze-white: #FFFFFF;
   --vizze-coral: #FF806B;
@@ -14,56 +14,87 @@
   --vizze-lavender: #E9E5FF;
   --vizze-sand: #F7F1E6;
   --vizze-teal: #176451;
+  --vizze-error: #B4233C;
+  --vizze-warning: #805400;
   --vizze-surface: #FFFEFB;
   --vizze-canvas: #F8F7F4;
-  --vizze-divider: #E6E3DC;
-  
+  --vizze-divider: #D9D7D1;
+
   --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   --font-editorial: 'Newsreader', Georgia, serif;
 }
 
-/* Base resets & typography */
-html {
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
   font-family: var(--font-body);
   background-color: var(--vizze-canvas);
   color: var(--vizze-ink);
   scroll-behavior: smooth;
+  scroll-padding-top: 88px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 h1, h2, h3, h4, .font-heading {
   font-family: var(--font-heading);
-  letter-spacing: -0.04em;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
 h1 em, h2 em, h3 em, .font-editorial {
   font-family: var(--font-editorial);
   font-style: italic;
   font-weight: 400;
+  letter-spacing: -0.015em;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
 
 /* ==========================================================================
-   VIZZE SIGNATURE BUTTONS (Manual v1.8 Oficial)
-   Texto à esquerda + divisória vertical fina + ícone de ação à direita
+   VIZZE SIGNATURE BUTTONS (Manual v1.8 / v2.0 Oficial)
+   Altura 48px, raio 12px nos quatro cantos, Inter 600, separador vertical
+   discreto e ícone Lucide de 18px ao final.
    ========================================================================== */
 .vz-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 600;
-  line-height: 1;
+  line-height: 1.2;
   min-height: 48px;
-  padding: 12px 18px;
+  padding: 10px 18px;
   border-radius: 12px;
   border: 1px solid transparent;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
   white-space: nowrap;
+}
+
+.vz-btn.w-full {
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 16px;
+}
+
+.vz-btn.w-full > span:first-child {
+  flex: 1;
+  text-align: center;
+}
+
+.vz-btn:focus-visible {
+  outline: 3px solid var(--vizze-indigo);
+  outline-offset: 3px;
 }
 
 .vz-btn-primary {
@@ -77,18 +108,30 @@ h1 em, h2 em, h3 em, .font-editorial {
   background-color: var(--vizze-indigo-hover);
   border-color: var(--vizze-indigo-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(48, 37, 237, 0.3);
+  box-shadow: 0 8px 22px rgba(48, 37, 237, 0.3);
 }
 
 .vz-btn-secondary {
+  background-color: var(--vizze-white);
+  color: var(--vizze-indigo);
+  border-color: #C7C3EF;
+}
+
+.vz-btn-secondary:hover {
+  background-color: #EEEDFF;
+  border-color: var(--vizze-indigo);
+  color: var(--vizze-indigo);
+}
+
+.vz-btn-neutral {
   background-color: var(--vizze-surface);
   color: var(--vizze-ink);
   border-color: var(--vizze-divider);
 }
 
-.vz-btn-secondary:hover {
+.vz-btn-neutral:hover {
   background-color: #F0EDE6;
-  border-color: #D4D0C7;
+  border-color: var(--vizze-indigo);
   color: var(--vizze-indigo);
 }
 
@@ -104,30 +147,29 @@ h1 em, h2 em, h3 em, .font-editorial {
 }
 
 .vz-btn-white {
-  background-color: #FFFFFF;
+  background-color: var(--vizze-white);
   color: var(--vizze-indigo);
-  border-color: #FFFFFF;
-  box-shadow: 0 4px 16px rgba(18, 20, 38, 0.15);
+  border-color: var(--vizze-white);
+  box-shadow: 0 6px 20px rgba(18, 20, 38, 0.18);
 }
 
 .vz-btn-white:hover {
-  background-color: var(--vizze-canvas);
-  color: var(--vizze-indigoHover);
+  background-color: var(--vizze-lavender);
+  border-color: var(--vizze-lavender);
+  color: var(--vizze-indigo-hover);
   transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(18, 20, 38, 0.22);
 }
 
 .vz-btn-ghost-white {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #FFFFFF;
-  border-color: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--vizze-white);
+  border-color: rgba(255, 255, 255, 0.24);
 }
 
 .vz-btn-ghost-white:hover {
-  background-color: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.4);
-  color: #FFFFFF;
+  background-color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.45);
+  color: var(--vizze-white);
   transform: translateY(-1px);
 }
 
@@ -138,28 +180,66 @@ h1 em, h2 em, h3 em, .font-editorial {
   border-radius: 10px;
 }
 
-/* O divisor característico do botão com ícone do manual */
 .button-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding-left: 10px;
-  margin-left: 8px;
+  padding-left: 12px;
+  margin-left: 6px;
   border-left: 1px solid color-mix(in srgb, currentColor 24%, transparent);
   flex-shrink: 0;
   align-self: stretch;
+  min-height: 18px;
+}
+
+.vz-btn-compact .button-icon {
+  padding-left: 10px;
+  margin-left: 4px;
 }
 
 .button-icon svg {
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   stroke: currentColor;
-  stroke-width: 2.2;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  flex-shrink: 0;
 }
 
 /* ==========================================================================
-   AMBIENT GLOWS & MODERN SAAS BACKDROPS
+   ELEMENTOS DO MANUAL DE IDENTIDADE (Eyebrow, Split-Rule, Cards)
    ========================================================================== */
+.eyebrow-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--vizze-indigo);
+}
+
+.eyebrow-num {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--vizze-indigo);
+  background: var(--vizze-lavender);
+  padding: 2px 7px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+}
+
+.split-rule {
+  width: 48px;
+  height: 7px;
+  border-radius: 99px;
+  background-color: var(--vizze-coral);
+}
+
 .glow-backdrop {
   position: absolute;
   top: 0;
@@ -167,8 +247,8 @@ h1 em, h2 em, h3 em, .font-editorial {
   transform: translateX(-50%);
   width: 100%;
   max-width: 1200px;
-  height: 600px;
-  background: radial-gradient(circle 450px at 50% 10%, rgba(48, 37, 237, 0.12), rgba(233, 229, 255, 0.45) 50%, transparent 85%);
+  height: 560px;
+  background: radial-gradient(circle 460px at 50% 8%, rgba(48, 37, 237, 0.10), rgba(233, 229, 255, 0.42) 52%, transparent 85%);
   pointer-events: none;
   z-index: 0;
 }
@@ -176,15 +256,14 @@ h1 em, h2 em, h3 em, .font-editorial {
 .editorial-card {
   background: var(--vizze-surface);
   border: 1px solid var(--vizze-divider);
-  border-radius: 20px;
-  box-shadow: 0 1px 3px rgba(18, 20, 38, 0.03);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(18, 20, 38, 0.03);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .editorial-card:hover {
-  border-color: #CEC6EF;
-  box-shadow: 0 12px 30px rgba(18, 20, 38, 0.06);
-  transform: translateY(-2px);
+  border-color: #C7C3EF;
+  box-shadow: 0 14px 32px rgba(18, 20, 38, 0.06);
 }
 
 /* ==========================================================================
@@ -193,17 +272,18 @@ h1 em, h2 em, h3 em, .font-editorial {
 .browser-mockup {
   background: var(--vizze-surface);
   border: 1px solid var(--vizze-divider);
-  border-radius: 20px;
-  box-shadow: 0 25px 50px -12px rgba(18, 20, 38, 0.15), 0 0 0 1px rgba(18, 20, 38, 0.04);
+  border-radius: 18px;
+  box-shadow: 0 20px 45px -12px rgba(18, 20, 38, 0.12);
   overflow: hidden;
 }
 
 .browser-header {
-  background: #F3F1ED;
-  padding: 12px 16px;
+  background: #F1EFEA;
+  padding: 11px 16px;
   border-bottom: 1px solid var(--vizze-divider);
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
 }
 
@@ -215,58 +295,92 @@ h1 em, h2 em, h3 em, .font-editorial {
 }
 
 .tv-mockup {
-  background: #0B0D19;
-  border: 4px solid #1C2033;
-  border-radius: 24px;
-  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.5), 0 0 40px rgba(48, 37, 237, 0.25);
+  background: #0D0F1D;
+  border: 4px solid #22263A;
+  border-radius: 20px;
+  box-shadow: 0 24px 50px -12px rgba(18, 20, 38, 0.35);
   color: white;
   overflow: hidden;
 }
 
 .mobile-mockup {
   width: 100%;
-  max-width: 380px;
+  max-width: 360px;
   background: var(--vizze-surface);
-  border: 8px solid #1C2033;
-  border-radius: 40px;
-  box-shadow: 0 25px 50px -12px rgba(18, 20, 38, 0.2);
+  border: 6px solid #191C2E;
+  border-radius: 36px;
+  box-shadow: 0 22px 45px -12px rgba(18, 20, 38, 0.18);
   overflow: hidden;
+  margin: 0 auto;
 }
 
-/* Custom details accordion smooth */
+/* ==========================================================================
+   RANGE SLIDER VISÍVEL E ACESSÍVEL (Simulador de ROI)
+   ========================================================================== */
+.vz-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--vizze-indigo) 0%, var(--vizze-indigo) var(--range-progress, 30%), #E2DFD7 var(--range-progress, 30%), #E2DFD7 100%);
+  outline: none;
+  cursor: pointer;
+  margin: 8px 0;
+  display: block;
+}
+
+.vz-range.vz-range-danger {
+  background: linear-gradient(to right, var(--vizze-error) 0%, var(--vizze-error) var(--range-progress, 40%), #E2DFD7 var(--range-progress, 40%), #E2DFD7 100%);
+}
+
+.vz-range::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 999px;
+  background: transparent;
+}
+
+.vz-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+  background: var(--vizze-indigo);
+  border: 3px solid var(--vizze-white);
+  box-shadow: 0 2px 8px rgba(48, 37, 237, 0.35);
+  margin-top: -7px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.vz-range.vz-range-danger::-webkit-slider-thumb {
+  background: var(--vizze-error);
+  box-shadow: 0 2px 8px rgba(180, 35, 60, 0.35);
+}
+
+.vz-range::-webkit-slider-thumb:hover {
+  transform: scale(1.12);
+}
+
+.vz-range::-moz-range-track {
+  height: 8px;
+  border-radius: 999px;
+  background: #E2DFD7;
+}
+
+.vz-range::-moz-range-thumb {
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+  background: var(--vizze-indigo);
+  border: 3px solid var(--vizze-white);
+  box-shadow: 0 2px 8px rgba(48, 37, 237, 0.35);
+}
+
+/* Accordion */
 details > summary {
   list-style: none;
 }
 details > summary::-webkit-details-marker {
   display: none;
-}
-details[open] > summary svg.chevron {
-  transform: rotate(180deg);
-}
-
-/* Custom range slider */
-input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  cursor: pointer;
-}
-input[type="range"]::-webkit-slider-track {
-  background: #EAE6DF;
-  height: 6px;
-  border-radius: 4px;
-}
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  background: var(--vizze-indigo);
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
-  border: 3px solid var(--vizze-white);
-  box-shadow: 0 2px 6px rgba(48, 37, 237, 0.4);
-  transition: transform 0.15s ease;
-}
-input[type="range"]::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
 }
